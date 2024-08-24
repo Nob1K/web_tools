@@ -1,47 +1,53 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button, Container, Box } from '@mui/material';
+import { Typography, Button, Container, Paper, Grid } from '@mui/material';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import { motion } from 'framer-motion';
+
+const MotionButton = motion(Button);
 
 const MainMenu = () => {
     return (
-        <div>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        My Tools
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Container maxWidth="sm">
-                <Box sx={{ mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Typography variant="h4" component="h1" gutterBottom>
-                        Tools offered currently:
-                    </Typography>
-                    <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
-                        <Button
+        <Container maxWidth="md">
+            <Paper elevation={3} sx={{ p: 4, mt: 4 }}>
+                <Typography variant="h4" component="h1" gutterBottom align="center" color="primary">
+                    My Personal Tools Suite
+                </Typography>
+                <Grid container spacing={3} sx={{ mt: 2 }}>
+                    <Grid item xs={12} sm={6}>
+                        <MotionButton
                             component={Link}
                             to="/days-calculator"
-                            variant="contained"
+                            variant="outlined"
                             startIcon={<CalculateIcon />}
                             fullWidth
+                            size="large"
+                            sx={{ py: 2 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                         >
                             Days Calculator
-                        </Button>
-                        <Button
+                        </MotionButton>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <MotionButton
                             component={Link}
                             to="/bmi-calculator"
-                            variant="contained"
+                            variant="outlined"
                             startIcon={<FitnessCenterIcon />}
                             fullWidth
+                            size="large"
+                            sx={{ py: 2 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                         >
                             BMI Calculator
-                        </Button>
-                    </Box>
-                </Box>
-            </Container>
-        </div>
+                        </MotionButton>
+                    </Grid>
+                </Grid>
+            </Paper>
+        </Container>
     );
 };
 
