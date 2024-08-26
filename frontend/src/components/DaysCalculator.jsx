@@ -54,9 +54,14 @@ const DaysCalculator = () => {
                     </Button>
                 </Box>
                 {result !== null && (
-                    <Typography variant="h6" sx={{ mt: 2 }}>
-                        Days between: {result}
-                    </Typography>
+                    <>
+                        <Typography variant="h6" sx={{ mt: 2 }}>
+                            Days between: {result['days']}
+                        </Typography>
+                        <Typography variant="h6" sx={{ mt: 2 }}>
+                            Which is about: {result['formattedDuration']}
+                        </Typography>
+                    </>
                 )}
             </Paper>
         </Container>

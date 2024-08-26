@@ -1,17 +1,29 @@
 package com.webtools.backend.controllers;
 
+import com.webtools.backend.models.DaysResult;
+import com.webtools.backend.services.DaysCalculatorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 @RestController
 @RequestMapping("/api/days-calculator")
 public class DaysCalculatorController {
-    // Parse inputs and and calculate
+
+    private final DaysCalculatorService daysService;
+
+    @Autowired
+    public DaysCalculatorController(DaysCalculatorService daysService) {
+        this.daysService = daysService;
+    }
+
     @GetMapping
-    public long calculateDays(@RequestParam String startDate, @RequestParam String endDate) {
+    public DaysResult calculateDays(
+            @RequestParam String startDate,
+            @RequestParam String endDate) {
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
-        return ChronoUnit.DAYS.between(start, end);
+        return daysService.calculateDays(start, end);
     }
 }
