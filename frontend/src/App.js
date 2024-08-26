@@ -7,10 +7,10 @@ import BMICalculator from './components/BMICalculator';
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#1976d2', // A professional blue color
+            main: '#1976d2',
         },
         background: {
-            default: '#f5f5f5', // Light gray background
+            default: '#f5f5f5',
         },
     },
     typography: {
