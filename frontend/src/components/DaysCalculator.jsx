@@ -14,7 +14,11 @@ const DaysCalculator = () => {
             const response = await axios.get(`http://localhost:8080/api/days-calculator?startDate=${startDate}&endDate=${endDate}`);
             setResult(response.data);
         } catch (error) {
-            console.error('Error calculating days:', error);
+            if (error.response) {
+                setResult({ error: error.response.data });
+            } else {
+                setResult({ error: 'An unexpected error occurred.' });
+            }
         }
     };
 
@@ -53,7 +57,12 @@ const DaysCalculator = () => {
                         Calculate
                     </Button>
                 </Box>
-                {result !== null && (
+                {result && result.error && (
+                    <Typography variant="h6" color="error" sx={{ mt: 2 }}>
+                        Error: {result.error}
+                    </Typography>
+                )}
+                {result !== null && result.days !== undefined && result.formattedDuration !== undefined && (
                     <>
                         <Typography variant="h6" sx={{ mt: 2 }}>
                             Days between: {result['days']}

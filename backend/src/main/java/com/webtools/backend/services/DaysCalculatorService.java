@@ -1,5 +1,6 @@
 package com.webtools.backend.services;
 
+import com.webtools.backend.exceptions.InvalidInputException;
 import com.webtools.backend.models.DaysResult;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,9 @@ public class DaysCalculatorService {
 
     // calculate days then return to controller
     public DaysResult calculateDays(LocalDate startDate, LocalDate endDate) {
+        if (startDate.isAfter(endDate)) {
+            throw new InvalidInputException("Start date must be before or equal to end date");
+        }
         long days = ChronoUnit.DAYS.between(startDate, endDate);
         String formattedDuration = formatDuration(days);
         return new DaysResult(days, formattedDuration);
