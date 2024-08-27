@@ -20,6 +20,7 @@ public class BMICalculatorService {
             height = height * 0.0254;
         }
 
+        // error check
         if (height <= 0 || weight <= 0) {
             throw new InvalidInputException("Height and weight must be positive values");
         }
@@ -30,6 +31,7 @@ public class BMICalculatorService {
         return new BMIResult(bmi, category);
     }
 
+    // determine category
     private String getBMICategory(double bmi) {
         if (bmi < 18.5) return "Underweight";
         if (bmi < 25) return "Normal weight";

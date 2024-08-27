@@ -26,7 +26,11 @@ const BMICalculator = () => {
             });
             setResult(response.data);
         } catch (error) {
-            console.error('Error calculating BMI:', error);
+            if (error.response) {
+                setResult({ error: error.response.data });
+            } else {
+                setResult({ error: 'An unexpected error occurred.' });
+            }
         }
     };
 
@@ -89,13 +93,18 @@ const BMICalculator = () => {
                         Calculate
                     </Button>
                 </Box>
-                {result !== null && (
+                {result && result.error && (
+                    <Typography variant="h6" color="error" sx={{ mt: 2 }}>
+                        Error: {result.error}
+                    </Typography>
+                )}
+                {result && !result.error && result.bmi !== undefined && result.category !== undefined && (
                     <>
                         <Typography variant="h6" sx={{ mt: 2 }}>
-                            Your BMI: {result['bmi'].toFixed(2)}
+                            Your BMI: {result.bmi.toFixed(2)}
                         </Typography>
                         <Typography variant="h6" sx={{ mt: 2 }}>
-                            Category: {result['category']}
+                            Category: {result.category}
                         </Typography>
                     </>
                 )}

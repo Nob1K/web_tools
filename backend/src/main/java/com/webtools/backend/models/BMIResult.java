@@ -1,5 +1,6 @@
 package com.webtools.backend.models;
 
+// model class, represents the bmi data
 public class BMIResult {
     private final double bmi;
     private final String category;
