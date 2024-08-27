@@ -1,30 +1,27 @@
 package com.webtools.backend.controllers;
 
+import com.webtools.backend.models.BMIResult;
+import com.webtools.backend.services.BMICalculatorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/bmi-calculator")
 public class BMICalculatorController {
 
+    private final BMICalculatorService bmiService;
+
+    @Autowired
+    public BMICalculatorController(BMICalculatorService bmiService) {
+        this.bmiService = bmiService;
+    }
+
     @GetMapping
-    public double calculateBMI(
+    public BMIResult calculateBMI(
             @RequestParam double weight,
             @RequestParam String weightUnit,
             @RequestParam double height,
             @RequestParam String heightUnit) {
-
-        // Convert weight to kg if in lbs
-        if (weightUnit.equalsIgnoreCase("lbs")) {
-            weight = weight * 0.453592;
-        }
-
-        // Convert height to meters
-        if (heightUnit.equalsIgnoreCase("cm")) {
-            height = height / 100;
-        } else if (heightUnit.equalsIgnoreCase("inches")) {
-            height = height * 0.0254;
-        }
-
-        return weight / (height * height);
+        return bmiService.calculateBMI(weight, weightUnit, height, heightUnit);
     }
 }

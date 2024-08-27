@@ -90,9 +90,14 @@ const BMICalculator = () => {
                     </Button>
                 </Box>
                 {result !== null && (
-                    <Typography variant="h6" sx={{ mt: 2 }}>
-                        Your BMI: {result.toFixed(2)}
-                    </Typography>
+                    <>
+                        <Typography variant="h6" sx={{ mt: 2 }}>
+                            Your BMI: {result['bmi'].toFixed(2)}
+                        </Typography>
+                        <Typography variant="h6" sx={{ mt: 2 }}>
+                            Category: {result['category']}
+                        </Typography>
+                    </>
                 )}
             </Paper>
         </Container>
