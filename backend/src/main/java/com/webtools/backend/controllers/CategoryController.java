@@ -21,12 +21,19 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public void updateCategory(@PathVariable Long id, @RequestBody Category category) {
-        categoryService.updateCategory(id, category);
+        Category updatedCategory = categoryService.updateCategory(id, category);
+        if (updatedCategory != null) {
+            return ResponseEntity.ok(updatedCategory);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public void updateCategory(@PathVariable Long id) {
-        categoryService.deleteCategory(id);
+    public void deleteCategory(@PathVariable Long id) {
+        if (categoryService.deleteCategory(id)) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
     @PostMapping
     public Category createCategory(@RequestBody Category category) {

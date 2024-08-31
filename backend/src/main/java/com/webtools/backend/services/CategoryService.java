@@ -16,12 +16,19 @@ public class CategoryService {
     }
 
     public Category updateCategory(Long id, Category category) {
+        if (!transactionRepository.existsById(id)) {
+            return null;
+        }
         category.setId(id);
         return categoryRepository.save(category);
     }
 
     public void deleteCategory(Long id) {
-        categoryRepository.deleteById(id);
+        if (categoryRepository.existsById(id)) {
+            categoryRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     public Category createCategory(Category category) {
